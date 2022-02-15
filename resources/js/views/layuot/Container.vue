@@ -1,10 +1,13 @@
 <template>
 <h1 class="container">VUE ROUTER</h1>
+    <MyBtn>registration</MyBtn>
+    <MyInput/>
 </template>
 
 <script>
+
 export default {
-    name: "Container"
+    name: "Container",
 }
 </script>
 
