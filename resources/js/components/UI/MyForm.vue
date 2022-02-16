@@ -67,5 +67,9 @@ export default {
         flex-direction: column;
     }
 
+    @media (max-width: 480px) {
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 </style>

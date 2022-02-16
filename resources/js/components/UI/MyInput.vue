@@ -29,6 +29,7 @@ export default {
     border-radius: 20px;
     padding-left: 1.5rem;
     margin-bottom: 1.5rem;
+    color: var(--color-primary-light);
     background: rgba(255,255,255,.2);
 
 }

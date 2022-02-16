@@ -3,16 +3,11 @@
 </template>
 
 <script>
-
-
-
-
 export default {
-    name: "Container",
-    components: {},
+    name: "UserProfile"
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
 </style>
