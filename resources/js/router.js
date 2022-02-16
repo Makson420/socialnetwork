@@ -4,6 +4,8 @@ import Login from "./views/Auth/Login";
 import Register from "./views/Auth/Register";
 import Dashboard from "./views/pages/Dashboard";
 import UserProfile from "./views/pages/UserProfile";
+import store from "./store"
+import Middleware from "./middleware"
 
 
 const routes = [
@@ -15,27 +17,61 @@ const routes = [
     {
         path: "/Login",
         name: Login,
-        component: Login
+        component: Login,
+        meta: {
+            middleware: [Middleware.guest]
+        }
     },
     {
         path: "/Register",
         name: Register,
-        component: Register
+        component: Register,
+        meta: {
+            middleware: [Middleware.guest]
+        }
     },
     {
         path: "/Dashboard",
         name: Dashboard,
-        component: Dashboard
+        component: Dashboard,
+        meta: {
+            middleware: [Middleware.auth]
+        },
+        children: [
+            {
+                path: "/dashboard/userprofile",
+                name: "dashboard.userprofile",
+                component: UserProfile,
+                meta: {
+                    middleware: [Middleware.auth, Middleware.isSubscribed]
+                }
+            }
+        ]
     },
-    {
-        path: "/UserProfile",
-        name: UserProfile,
-        component: UserProfile
-    },
+
 ]
 const router = createRouter({
     routes,
     history: createWebHistory(process.env.BASE_URL)
+})
+
+router.beforeEach((to, from, next, store) => {
+    if (!to.meta.middleware) {
+        return next()
+    }
+
+    const middleware = to.meta.middleware
+
+    const context = {
+        to,
+        from,
+        next,
+        store
+    }
+    return  middleware[0] ({
+        ...context
+    })
+
 })
 
 export default router
