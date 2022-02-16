@@ -1,6 +1,6 @@
 function middlewarePipeline(context, middleware, index) {
     const nextMiddleware = middleware[index]
-    if (!middleware) {
+    if (!nextMiddleware) {
         return context.next
     }
 
@@ -9,7 +9,7 @@ function middlewarePipeline(context, middleware, index) {
             context, middleware, index + 1
         )
         nextMiddleware({...context, next: nextPipeline})
-     }
+    }
 }
 
 

@@ -1,8 +1,8 @@
 <template>
     <div class="frame">
         <div class="nav">
-            <h2>Sign in</h2>
-            <h2>Sign up</h2>
+            <router-link to="/login"><h2>Sign in</h2></router-link>
+            <router-link to="/Register"><h2>Sign up</h2></router-link>
         </div>
         <form class="form" action="" method="post" name="form">
             <slot></slot>
@@ -39,11 +39,9 @@ export default {
     border-radius: 5px;
     box-shadow: var(--shadow-dark);
     overflow: hidden;
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-    &.signin {
-        height: 375px;
-    }
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+
 
     .nav {
         width: 100%;
@@ -51,13 +49,44 @@ export default {
         display: flex;
         justify-content: space-between;
 
+        a {
+            color: var(--color-gray-dark-1);
+            position: relative;
+            order: 2;
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+
+
+            &:hover {
+                color: var(--color-primary-dark);
+                -webkit-transition: all .2s ease;
+                transition: all .2s ease;
+            }
+
+
+
+            &.router-link-active,
+            &.router-link-exact-active {
+                color: var(--color-primary-dark);
+                cursor: pointer;
+                order: 1;
+                -webkit-transition: all .2s ease;
+                transition: all .2s ease;
+            }
+
+        }
+
         h2 {
             padding: 0 1rem;
             font-size: 2rem;
             margin-bottom: 0;
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
 
             &:hover {
                 color: var(--color-primary-dark);
+                -webkit-transition: all .2s ease;
+                transition: all .2s ease;
             }
         }
 

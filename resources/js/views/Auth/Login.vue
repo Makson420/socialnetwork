@@ -3,9 +3,17 @@
         <div class="wrapper__form">
             <my-form>
                 <my-label>Email</my-label>
-                <my-input/>
+                <my-input
+                    type="text"
+                    v-model="user.email"
+                    placeholder="email address"
+                />
                 <my-label>Password</my-label>
-                <my-input/>
+                <my-input
+                    type="number"
+                    v-model="user.password"
+                    placeholder="your password"
+                />
                 <my-checkbox>Keep me signed in</my-checkbox>
                 <my-btn>Sign In</my-btn>
             </my-form>
@@ -14,10 +22,16 @@
 </template>
 
 <script>
-import MyContainer from "../../components/UI/MyContainer";
+
 export default {
     name: "Login",
-    components: {MyContainer}
+    components: {},
+    data: () =>({
+        user: {
+            email: "",
+            password: ""
+        }
+    })
 }
 </script>
 

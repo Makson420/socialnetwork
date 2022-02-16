@@ -4,9 +4,9 @@ import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
 import Dashboard from "../views/pages/Dashboard";
 import UserProfile from "../views/pages/UserProfile";
+
+import Middleware from "../middleware";
 import store from "../store"
-import Middleware from "../middleware"
-import MiddlewarePipeline from "../middleware"
 import middlewarePipeline from "./middlewarePipeline";
 
 const routes = [
@@ -16,38 +16,33 @@ const routes = [
         component: Container
     },
     {
-        path: "/Login",
+        path: "/login",
         name: Login,
         component: Login,
-        meta: {
-            middleware: [Middleware.guest]
-        }
+
     },
     {
-        path: "/Register",
+        path: "/register",
         name: Register,
         component: Register,
-        meta: {
-            middleware: [Middleware.guest]
-        }
+
     },
     {
-        path: "/Dashboard",
+        path: "/dashboard",
         name: Dashboard,
         component: Dashboard,
         meta: {
             middleware: [Middleware.auth]
         },
-        children: [
-            {
-                path: "/dashboard/userprofile",
-                name: "dashboard.userprofile",
-                component: UserProfile,
-                meta: {
-                    middleware: [Middleware.auth, Middleware.isSubscribed]
-                }
-            }
-        ]
+    },
+
+    {
+        path: "/profile",
+        name: UserProfile,
+        component: UserProfile,
+        meta: {
+            middleware: [Middleware.auth]
+        },
     },
 
 ]
@@ -56,7 +51,8 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL)
 })
 
-router.beforeEach((to, from, next, store) => {
+
+router.beforeEach((to, from, next) => {
     if (!to.meta.middleware) {
         return next()
     }
