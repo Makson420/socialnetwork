@@ -1,8 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 :root {
-  --color-primary-light: #c69963;
-  --color-primary-dark: #b28451;
+  --color-primary-light: #ffffff;
+  --color-primary-dark: #000;
   --color-gray-dark-1: #777;
+  --color-btn-hover-1: rgba(255,255,255, .6);
   --color-gray-light-1: #c69963;
   --shadow-dark: 0 2rem 6rem rgba(0,0,0, .7) ;
 }
@@ -11,6 +12,10 @@
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+:focus {
+  outline: none;
 }
 
 html {
@@ -27,7 +32,7 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: var(--color-gray-dark-1);
-  background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+  background-image: url("/image/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;

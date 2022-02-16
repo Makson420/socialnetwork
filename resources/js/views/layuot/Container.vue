@@ -1,28 +1,55 @@
 <template>
-<h1 class="container">VUE ROUTER</h1>
-    <MyBtn>registration</MyBtn>
-    <MyInput/>
+<div class="container">
+    <div class="wrapper__form">
+        <my-form>
+            <my-label>Name</my-label>
+            <my-input/>
+            <my-label>Email</my-label>
+            <my-input/>
+            <my-label>Password</my-label>
+            <my-input/>
+            <my-label>Confirm Password</my-label>
+            <my-input/>
+            <my-btn>Sign Up</my-btn>
+        </my-form>
+
+        <my-form>
+            <my-label>Email</my-label>
+            <my-input/>
+            <my-label>Password</my-label>
+            <my-input/>
+            <my-checkbox>Keep me signed in</my-checkbox>
+            <my-btn>Sign In</my-btn>
+        </my-form>
+    </div>
+
+</div>
+
 </template>
 
 <script>
 
+
+
+
 export default {
     name: "Container",
+    components: {},
 }
 </script>
 
 <style scoped lang="scss">
 .container {
-    max-width: 120rem;
-    margin: 8rem auto;
-    background-color: var(--color-gray-light-1);
-    box-shadow: var(--shadow-dark);
+    width: 100%;
+    padding-top: 60px;
+    margin: 0 auto;
     min-height: 50rem;
 
-    @media only screen and (max-width: 75rem) {
-        margin: 0;
-        max-width: 100%;
-        width: 100%;
+    .wrapper__form {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 </style>

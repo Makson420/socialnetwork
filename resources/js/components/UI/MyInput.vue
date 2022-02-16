@@ -1,7 +1,7 @@
 <template>
     <input
         type="text"
-        class="input"
+        class="form-styling"
         :value="modelValue"
         @input="updateInput"
     >
@@ -22,10 +22,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.input {
+.form-styling {
     width: 100%;
-    border: 1px solid teal;
-    padding: 10px 15px;
-    margin-top: 20px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255,255,255,.2);
+
 }
+
 </style>
