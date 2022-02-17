@@ -19722,9 +19722,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  created: function created() {
+    this.checkUserState();
+  },
   methods: {
     login: function login() {
       this.$store.dispatch('auth/loginUser', this.user);
+    },
+    checkUserState: function checkUserState() {
+      this.$store.dispatch('auth/setLoggedInstate', this.user);
     }
   }
 });
@@ -19793,8 +19799,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Dashboard"
+  name: "Dashboard",
+  components: {},
+  data: function data() {
+    return {};
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    loggedIn: 'auth/loggedIn'
+  })),
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    logout: 'auth/logout'
+  }))
 });
 
 /***/ }),
@@ -20351,8 +20375,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("logout");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return null;
+  var _component_my_btn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("my-btn");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_ctx.loggedIn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_my_btn, {
+    key: 0,
+    onClick: _ctx.logout
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -20711,7 +20754,7 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 
 var state = {
   userDetails: {},
-  isLoggedIn: false
+  isLoggedIn: true
 };
 var actions = {
   registerUser: function registerUser(_ref, user) {
@@ -20746,9 +20789,32 @@ var actions = {
         reject(error);
       });
     });
+  },
+  logout: function logout(ctx) {
+    return new Promise(function (resolve) {
+      localStorage.removeItem('token');
+      ctx.commit('setLoggedIn', false);
+      resolve(true);
+      window.location.replace('/login');
+    });
+  },
+  setLoggedInstate: function setLoggedInstate(ctx) {
+    return new Promise(function (resolve) {
+      if (localStorage.getItem('token')) {
+        ctx.commit('setLoggedIn', true);
+        resolve(true);
+      }
+
+      ctx.commit('setLoggedIn', false);
+      resolve(false);
+    });
   }
 };
-var mutations = {};
+var mutations = {
+  setLoggedIn: function setLoggedIn(state, payload) {
+    state.isLoggedIn = payload;
+  }
+};
 var getters = {
   loggedIn: function loggedIn(state) {
     return state.isLoggedIn;
