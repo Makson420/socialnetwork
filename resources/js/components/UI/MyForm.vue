@@ -2,9 +2,9 @@
     <div class="frame">
         <div class="nav">
             <router-link to="/login"><h2>Sign in</h2></router-link>
-            <router-link to="/Register"><h2>Sign up</h2></router-link>
+            <router-link to="/register"><h2>Sign up</h2></router-link>
         </div>
-        <form class="form" action="" method="post" name="form">
+        <form class="form">
             <slot></slot>
         </form>
     </div>

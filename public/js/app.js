@@ -19721,6 +19721,11 @@ __webpack_require__.r(__webpack_exports__);
         password: ""
       }
     };
+  },
+  methods: {
+    login: function login() {
+      this.$store.dispatch('auth/loginUser', this.user);
+    }
   }
 });
 
@@ -19749,6 +19754,11 @@ __webpack_require__.r(__webpack_exports__);
         password_confirmation: ""
       }
     };
+  },
+  methods: {
+    register: function register() {
+      this.$store.dispatch('auth/registerUser', this.user);
+    }
   }
 });
 
@@ -19973,10 +19983,7 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_5 = {
-  "class": "form",
-  action: "",
-  method: "post",
-  name: "form"
+  "class": "form"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
@@ -19991,7 +19998,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* STABLE */
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/Register"
+    to: "/register"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_4];
@@ -20151,14 +20158,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_my_btn, null, {
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_my_btn, {
+            type: "submit",
+            onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.login, ["prevent"])
+          }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [_hoisted_5];
             }),
             _: 1
             /* STABLE */
 
-          })];
+          }, 8
+          /* PROPS */
+          , ["onClick"])];
         }),
         _: 1
         /* STABLE */
@@ -20284,14 +20296,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             placeholder: "confirm password"
           }, null, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_my_btn, null, {
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_my_btn, {
+            type: "submit",
+            onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.register, ["prevent"])
+          }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [_hoisted_6];
             }),
             _: 1
             /* STABLE */
 
-          })];
+          }, 8
+          /* PROPS */
+          , ["onClick"])];
         }),
         _: 1
         /* STABLE */
@@ -20689,12 +20706,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
 
 var state = {
   userDetails: {},
   isLoggedIn: false
 };
-var actions = {};
+var actions = {
+  registerUser: function registerUser(_ref, user) {
+    _objectDestructuringEmpty(_ref);
+
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/register", {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        password_confirmation: user.password_confirmation
+      }).then(function (response) {
+        if (response.data) {
+          window.location.replace("/login");
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  loginUser: function loginUser(ctx, payload) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/login", payload).then(function (response) {
+        if (response.data.access_token) {
+          localStorage.setItem('token', response.data.access_token);
+          window.location.replace("/dashboard");
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  }
+};
 var mutations = {};
 var getters = {
   loggedIn: function loggedIn(state) {

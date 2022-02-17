@@ -1,7 +1,7 @@
 <template>
     <my-container>
         <div class="wrapper__form">
-            <my-form>
+            <my-form >
                 <my-label>Name</my-label>
                 <my-input
                     type="text"
@@ -14,6 +14,7 @@
                     v-model="user.email"
                     placeholder="email address"
                 />
+
                 <my-label>Password</my-label>
                 <my-input
                     type="number"
@@ -26,7 +27,7 @@
                     v-model="user.password_confirmation"
                     placeholder="confirm password"
                 />
-                <my-btn>Register</my-btn>
+                <my-btn type="submit" @click.prevent="register">Register</my-btn>
             </my-form>
         </div>
     </my-container>
@@ -44,7 +45,12 @@ export default {
             password: "",
             password_confirmation: "",
         }
-    })
+    }),
+    methods: {
+        register() {
+            this.$store.dispatch('auth/registerUser', this.user)
+        }
+    }
 }
 </script>
 

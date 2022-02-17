@@ -15,7 +15,7 @@
                     placeholder="your password"
                 />
                 <my-checkbox>Keep me signed in</my-checkbox>
-                <my-btn>Sign In</my-btn>
+                <my-btn type="submit" @click.prevent="login">Sign In</my-btn>
             </my-form>
         </div>
     </my-container>
@@ -31,7 +31,12 @@ export default {
             email: "",
             password: ""
         }
-    })
+    }),
+    methods: {
+        login() {
+            this.$store.dispatch('auth/loginUser', this.user)
+        }
+    }
 }
 </script>
 
