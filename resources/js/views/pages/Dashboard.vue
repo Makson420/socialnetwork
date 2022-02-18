@@ -1,14 +1,19 @@
 <template>
+    <Header
+        @logout="logout"
+        :loggedIn="loggedIn"
+    />
 <div>
-    <my-btn @click="logout" v-if="loggedIn">logout</my-btn>
+
 </div>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import Header from "../../components/Header";
 export default {
     name: "Dashboard",
-    components: {},
+    components: {Header},
     data: () => ({}),
 
     computed: {
